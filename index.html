@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Awareness & Support</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fafafa;
+            color: #333;
+        }
+
+        header {
+            background: url("https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1470&q=80") center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #b30059;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            background: #b30059;
+            color: white;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #800040;
+        }
+
+        #quotes {
+            background: #ffe6f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        #quoteText {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        @media(max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Cancer Awareness & Support <br> Together We Fight, Together We Win</h1>
+    </header>
+
+    <div class="container">
+
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-form">
+            <form>
+                <input type="text" name="Name" placeholder="Your Name" required>
+                <input type="email" name="Email" placeholder="Your Email" required>
+                <textarea placeholder="Message" rows="4" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <h2 class="section-title">Real-Time Inspirational Quote</h2>
+
+        <div id="quotes">
+            <div id="quoteText">Loading quote...</div>
+            <small id="quoteAuthor"></small>
+        </div>
+
+    </div>
+
+  <script>
+async function fetchQuotes() {
+    try {
+        const response = await fetch("https://type.fit/api/quotes");
+        const data = await response.json();
+
+        const randomQuote = data[Math.floor(Math.random() * data.length)];
+
+        document.getElementById("quoteText").innerText = randomQuote.text;
+        document.getElementById("quoteAuthor").innerText = 
+            randomQuote.author ? `- ${randomQuote.author}` : "- Unknown";
+    }
+    catch (error) {
+        document.getElementById("quoteText").innerText = "Unable to load quote.";
+        document.getElementById("quoteAuthor").innerText = "";
+        console.error("Quote API Error:", error);
+    }
+}
+
+fetchQuotes();
+setInterval(fetchQuotes, 10000);
+</script>
+
+
+</body>
+</html>
